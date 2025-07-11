@@ -1,0 +1,66 @@
+tr:nth-child(even) {
+    background-color: #202020;
+}
+tr:nth-child(odd) {
+    background-color: #585858;
+}
+
+tr th {
+    background-color: #240a0a;
+    
+}
+
+.killed-creature {
+  background-color: rgb(17, 17, 17) !important;
+  color: rgb(94, 94, 94);
+}
+
+.killed-creature-name {
+  text-decoration: line-through !important;
+}
+
+th {
+  font-size: small;
+  /* padding: 0 7px 2px 7px; */
+}
+
+th:nth-child(6) {
+  background-color: #585858;
+  cursor: pointer;
+}
+
+td {
+  padding: 0 5px 0 5px;
+}
+
+td:nth-child(2) {
+  min-width: 100px;
+}
+
+td:nth-child(6) {
+  background-color: #4e1616;
+  cursor: pointer;
+}
+
+td:nth-child(7) {
+  background-color: #242424;
+}
+
+.table-container {
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center;     /* Center vertically if desired */
+  margin-top: 1em;
+}
+
+@media only screen and (max-width: 850px) {
+  .table-container table {
+    max-width: fit-content;
+  }
+}
+
+@media only screen and (min-width: 851px) {
+  .table-container table {
+    width: max-content;
+  }
+}

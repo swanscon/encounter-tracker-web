@@ -1,0 +1,42 @@
+.creature-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* align labels and inputs to the left */
+  gap: 0.5em; /* spacing between elements */
+  margin: 1em 0;
+}
+
+.creature-form form {
+  display: flex;
+  flex-direction: column;
+  width: 220px;
+}
+
+.creature-form label {
+  margin-top: 0.5em;
+  font-weight: bold;
+}
+
+.creature-form input[type="text"],
+.creature-form input[type="number"] {
+  width: 100%;
+  padding: 0.4em;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.creature-form input[type="checkbox"] {
+  margin-top: 0.5em;
+}
+
+.creature-form button {
+  margin-top: 1em;
+  padding: 0.5em 1em;
+  cursor: pointer;
+}
+
+.small-input input {
+  text-align: center;
+  font-size: large;
+  max-width: 80px;
+}
