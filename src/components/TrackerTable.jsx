@@ -29,8 +29,19 @@ export default function TrackerTable({ creatureList, updateFormHidden }) {
     };
 
     const handleKillCreature = (creature) => {
-        console.log(`Creature: ${creature} has died.`);
-        setKilledCreatures((prev) => [...prev, creature]);
+        if (killedCreatures.includes(creature)) {
+            let newKilledCreatures = [];
+            for (let c of killedCreatures) {
+                if (c !== creature) {
+                    newKilledCreatures.push(c);
+                }
+            }
+            console.log(`Creature: ${creature} revived.`);
+            setKilledCreatures(newKilledCreatures);
+        } else {
+            console.log(`Creature: ${creature} has died.`);
+            setKilledCreatures((prev) => [...prev, creature]);
+        }
     };
 
     return (
@@ -116,12 +127,12 @@ export default function TrackerTable({ creatureList, updateFormHidden }) {
                                             <b>{c.name}</b>
                                         </td>
                                     ) : (
-                                        <td className="killed-creature-name">{c.name}</td>
+                                        <td className="killed-creature-name">
+                                            {c.name}
+                                        </td>
                                     )}
                                     <td>{c.ac}</td>
-                                    <td>
-                                        Dead
-                                    </td>
+                                    <td>Dead</td>
                                     <td>
                                         <FontAwesomeIcon
                                             icon={faEye}

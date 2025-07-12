@@ -6,9 +6,9 @@ export default function HomePage() {
             <h1>Encounter Tracker</h1>
             <p>Build simple encounters with default attributes Initiative *INIT*, Armor Class *AC*, and "dynamic" Hit Points *HP*. </p>
             <h4>Navigate</h4>
-            <button><Link to="/tracker">New Encounter Tracker</Link></button>
-            <button><Link to="/odd-courage">Odd Courage</Link></button>
-            <button><Link to="/merits-horizon">Merit's Horizon</Link></button>
+            <Link to="/tracker"><button>New Encounter Tracker</button></Link>
+            <Link to="/odd-courage"><button>Odd Courage</button></Link>
+            <Link to="/merits-horizon"><button>Merit's Horizon</button></Link>
         </div>
     )
 }

@@ -64,15 +64,14 @@ export default function MeritsHorizon() {
             <h1>New ODD COURAGE Encounter</h1>
             <form>
                 {players.map((c, index) => (
-                    <>
+                    <div key={index}>
                         <label htmlFor="checkbox">{c.name}</label>
                         <input
                             name="checkbox"
-                            key={index}
                             type="checkbox"
                             onChange={handleSetSelectedPlayers}
                         />
-                    </>
+                    </div>
                 ))}
             </form>
             <button onClick={handleSelectedPlayers}>

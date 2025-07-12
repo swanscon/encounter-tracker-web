@@ -1,10 +1,18 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import AddCreature from "../components/AddCreature";
 import TrackerTable from "../components/TrackerTable";
-
-export default function EncounterTracker() {
+``
+export default function EncounterTracker({ props }) {
     const [creatureList, setCreatureList] = useState([]);
     const [formHidden, setFormHidden] = useState(false);
+
+    useEffect(() => {
+        if(props) {
+            for(let prop of props) {
+                handleUpdateList(prop);
+            }
+        }
+    }, []);
 
     const handleUpdateList = (newCreature) => {
         setCreatureList((prevList) => {
