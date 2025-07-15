@@ -3,22 +3,21 @@ import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/HomePage";
 import EncounterTracker from "./pages/EncounterTracker";
-import OddCourage from "./pages/OddCourage";
-import MeritsHorizon from "./pages/MeritsHorizon";
+import PlayerSelector from "./pages/PlayerSelector";
 
 function App() {
-    const [preset, setPreset] = useState([]);
+    const [playerList, setPlayerList] = useState([]);
 
-    const handleSetPreset = (newPreset) => {
-        setPreset(newPreset);
+    const handleUpdatePlayerList = (players) => {
+        setPlayerList(players);
     }
 
     return (
         <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/tracker" element={<EncounterTracker props={preset} />} />
-            <Route path="/odd-courage" element={<OddCourage />} />
-            <Route path="/merits-horizon" element={<MeritsHorizon />} />
+            <Route path="/" element={<Home clearPlayers={handleUpdatePlayerList} />} />
+            <Route path="/tracker" element={<EncounterTracker playerList={playerList} />} />
+            <Route path="/odd-courage" element={<PlayerSelector party="Odd Courage" addPlayers={handleUpdatePlayerList} />}/>
+            <Route path="/merits-horizon" element={<PlayerSelector party="Merit's Horizon" addPlayers={handleUpdatePlayerList} />} />
         </Routes>
     );
 }

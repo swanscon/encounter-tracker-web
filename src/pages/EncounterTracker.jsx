@@ -1,17 +1,24 @@
 import { useState, useEffect } from "react";
 import AddCreature from "../components/AddCreature";
 import TrackerTable from "../components/TrackerTable";
-``
-export default function EncounterTracker({ props }) {
+
+export default function EncounterTracker({ playerList }) {
     const [creatureList, setCreatureList] = useState([]);
     const [formHidden, setFormHidden] = useState(false);
 
     useEffect(() => {
-        if(props) {
-            for(let prop of props) {
-                handleUpdateList(prop);
+        let selectedPlayers = [];
+            for (let player of playerList) {
+                const selectedPlayer = {
+                    init: "",
+                    name: player,
+                    ac: "",
+                    notes: "",
+                    pc: true,
+                };
+                selectedPlayers.push(selectedPlayer);
             }
-        }
+        setCreatureList(selectedPlayers);
     }, []);
 
     const handleUpdateList = (newCreature) => {
@@ -35,12 +42,16 @@ export default function EncounterTracker({ props }) {
     const handleUpdateFormHidden = () => {
         const prev = formHidden;
         setFormHidden(!prev);
-    }
+    };
 
     return (
         <>
-            {formHidden ? (<></>) : (<AddCreature updateList={handleUpdateList} />)}
-            <TrackerTable creatureList={creatureList} updateFormHidden={handleUpdateFormHidden} />
+            {/* OddCourage or MeritsHorizon component depending on what was selected */}
+            {formHidden ? <></> : <AddCreature updateList={handleUpdateList} />}
+            <TrackerTable
+                creatureList={creatureList}
+                updateFormHidden={handleUpdateFormHidden}
+            />
         </>
     );
 }

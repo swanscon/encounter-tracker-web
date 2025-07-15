@@ -1,8 +1,35 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-export default function OddCourage() {
-    const players = ["Iggy", "Golyat", "Gio", "Caldarion", "Arawn", "Tritan"];
+export default function PlayerSelector({ party, addPlayers }) {
+    const oddCourage = [
+        "Iggy",
+        "Golyat",
+        "Gio",
+        "Caldarion",
+        "Arawn",
+        "Tritan",
+    ];
+    const meritsHorizon = [
+        "Alden",
+        "Dasatra",
+        "Robin",
+        "Dreynea",
+        "Xell",
+        "Kalish",
+    ];
+    const [playerList, setPlayerList] = useState([]);
     const [selectedPlayers, setSelectedPlayers] = useState([]);
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (party === "Odd Courage") {
+            setPlayerList(oddCourage);
+        } else {
+            setPlayerList(meritsHorizon);
+        }
+    }, [party]);
 
     const handleSetSelectedPlayers = (e) => {
         const thisPlayer = e.target.value;
@@ -10,8 +37,8 @@ export default function OddCourage() {
             setSelectedPlayers((prev) => [...prev, thisPlayer]);
         } else {
             let newSelected = [];
-            for(let c of selectedPlayers) {
-                if(c !== thisPlayer) {
+            for (let c of selectedPlayers) {
+                if (c !== thisPlayer) {
                     newSelected.push(c);
                 }
             }
@@ -19,20 +46,17 @@ export default function OddCourage() {
         }
     };
 
-    const handleSelectedPlayers = () => {
-        console.log(
-            `Selected Players: ${selectedPlayers.map(
-                (player) => player + " "
-            )}.`
-        );
+    const handleSubmitSelectedPlayers = () => {
+        addPlayers(selectedPlayers);
+        navigate("/tracker");
     };
 
     return (
         <div>
-            <h1>New ODD COURAGE Encounter</h1>
+            <h1>New {party} Encounter</h1>
             <p>Select PLAYER CHARACTERS to include in this encounter.</p>
             <form>
-                {players.map((c, index) => (
+                {playerList.map((c, index) => (
                     <div key={index}>
                         <label htmlFor="checkbox">{c}</label>
                         <input
@@ -44,7 +68,7 @@ export default function OddCourage() {
                     </div>
                 ))}
             </form>
-            <button onClick={handleSelectedPlayers}>
+            <button onClick={handleSubmitSelectedPlayers}>
                 Submit Selected Players
             </button>
         </div>
