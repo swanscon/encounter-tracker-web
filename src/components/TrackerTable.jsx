@@ -10,7 +10,11 @@ import { faEye } from "@fortawesome/free-regular-svg-icons";
 import { faCaretUp } from "@fortawesome/free-solid-svg-icons";
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 
-export default function TrackerTable({ creatureList, updateFormHidden }) {
+export default function TrackerTable({
+    creatureList,
+    updateFormHidden,
+    updateWindowHidden,
+}) {
     const [hidden, setHidden] = useState(false);
     const [killedCreatures, setKilledCreatures] = useState([]);
 
@@ -64,14 +68,14 @@ export default function TrackerTable({ creatureList, updateFormHidden }) {
                                                 icon={faCaretDown}
                                             />
                                             <span className="tooltip-text">
-                                                Hide Creature Form
+                                                Show Creature Form
                                             </span>
                                         </>
                                     ) : (
                                         <>
                                             <FontAwesomeIcon icon={faCaretUp} />
                                             <span className="tooltip-text">
-                                                Show Creature Form
+                                                Hide Creature Form
                                             </span>
                                         </>
                                     )}
@@ -113,7 +117,9 @@ export default function TrackerTable({ creatureList, updateFormHidden }) {
                                     >
                                         <FontAwesomeIcon icon={faSkull} />
                                     </td>
-                                    <td>
+                                    <td
+                                        onClick={updateWindowHidden}
+                                    >
                                         <FontAwesomeIcon
                                             icon={faEllipsisVertical}
                                         />

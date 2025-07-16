@@ -1,23 +1,25 @@
 import { useState, useEffect } from "react";
 import AddCreature from "../components/AddCreature";
 import TrackerTable from "../components/TrackerTable";
+import EditWindow from "../components/EditWindow";
 
 export default function EncounterTracker({ playerList }) {
     const [creatureList, setCreatureList] = useState([]);
     const [formHidden, setFormHidden] = useState(false);
+    const [editWindowHidden, setEditWindowHidden] = useState(true);
 
     useEffect(() => {
         let selectedPlayers = [];
-            for (let player of playerList) {
-                const selectedPlayer = {
-                    init: "",
-                    name: player,
-                    ac: "",
-                    notes: "",
-                    pc: true,
-                };
-                selectedPlayers.push(selectedPlayer);
-            }
+        for (let player of playerList) {
+            const selectedPlayer = {
+                init: "",
+                name: player,
+                ac: "",
+                notes: "",
+                pc: true,
+            };
+            selectedPlayers.push(selectedPlayer);
+        }
         setCreatureList(selectedPlayers);
     }, []);
 
@@ -39,9 +41,18 @@ export default function EncounterTracker({ playerList }) {
         });
     };
 
+    // const handleUpdateCreature = (creature) => {
+    //     alert(`Editing creature: ${creature}`);
+    // };
+
     const handleUpdateFormHidden = () => {
         const prev = formHidden;
         setFormHidden(!prev);
+    };
+
+    const handleUpdateWindowHidden = () => {
+        const prev = editWindowHidden;
+        setEditWindowHidden(!prev);
     };
 
     return (
@@ -51,7 +62,13 @@ export default function EncounterTracker({ playerList }) {
             <TrackerTable
                 creatureList={creatureList}
                 updateFormHidden={handleUpdateFormHidden}
+                updateWindowHidden={handleUpdateWindowHidden} 
             />
+            {editWindowHidden ? (
+                <></>
+            ) : (
+                <EditWindow updateWindowHidden={handleUpdateWindowHidden} />
+            )}
         </>
     );
 }
