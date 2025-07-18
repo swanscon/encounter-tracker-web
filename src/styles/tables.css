@@ -7,60 +7,93 @@ tr:nth-child(odd) {
 
 tr th {
     background-color: #240a0a;
-    
 }
 
 .killed-creature {
-  background-color: rgb(17, 17, 17) !important;
-  color: rgb(94, 94, 94);
+    background-color: rgb(17, 17, 17) !important;
+    color: rgb(94, 94, 94);
 }
 
 .killed-creature-name {
-  text-decoration: line-through !important;
+    text-decoration: line-through !important;
 }
 
 th {
-  font-size: small;
-  /* padding: 0 7px 2px 7px; */
+    font-size: small;
+    /* padding: 0 7px 2px 7px; */
 }
 
 th:nth-child(6) {
-  background-color: #585858;
-  cursor: pointer;
+    background-color: #585858;
+    cursor: pointer;
 }
 
 td {
-  padding: 0 5px 0 5px;
+    padding: 0 5px 0 5px;
 }
 
 td:nth-child(2) {
-  min-width: 100px;
+    min-width: 100px;
+}
+
+td:nth-child(5) {
+	min-width: 25px;
 }
 
 td:nth-child(6) {
-  background-color: #4e1616;
-  cursor: pointer;
+    background-color: #4e1616;
+    min-width: 25px;
+    cursor: pointer;
 }
 
 td:nth-child(7) {
-  background-color: #242424;
+    min-width: 25px;
+    background-color: #304228;
+	cursor: pointer;
 }
 
 .table-container {
-  display: flex;
-  justify-content: center; /* Center horizontally */
-  align-items: center;     /* Center vertically if desired */
-  margin-top: 1em;
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically if desired */
+    margin-top: 1em;
 }
 
+/* generic desktop: let content size naturally */
+.table-container table {
+    width: max-content;
+}
+
+/* for any screen narrower than 850px */
 @media only screen and (max-width: 850px) {
-  .table-container table {
-    max-width: fit-content;
-  }
+    .table-container {
+        width: 90%;
+        /* allow a little padding, but don’t let it push you wider than the viewport */
+        padding: 0 1em;
+    }
+    .table-container table {
+        width: 100%;
+        table-layout: unset;
+    }
+    td,
+    th {
+        font-size: 0.85rem;
+        padding: 0.1em;
+    }
 }
 
-@media only screen and (min-width: 851px) {
+/* @media only screen and (max-width: 768px) {
+  .table-container {
+    overflow-x: auto;
+    padding: 0 1em;
+  }
+
   .table-container table {
     width: max-content;
   }
-}
+
+  td, th {
+    font-size: 14px;
+    padding: 0.5em;
+  }
+} */

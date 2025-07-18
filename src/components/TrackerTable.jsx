@@ -20,6 +20,7 @@ export default function TrackerTable({
     const [killedCreatures, setKilledCreatures] = useState([]);
     const [editWindowHidden, setEditWindowHidden] = useState(true);
     const [editCreature, setEditCreature] = useState({});
+    // const [notesWindowHidden, setNotesWindowHidden] = useState(true);
 
     const handleHidden = () => {
         const prev = hidden;
@@ -28,6 +29,7 @@ export default function TrackerTable({
     };
 
     const handleViewNotes = (note) => {
+        // setNotesWindowHidden(false);
         let noteStr = note.trim();
         if (noteStr.length === 0) {
             noteStr = "No notes for creature. Edit to add new notes.";
@@ -78,7 +80,7 @@ export default function TrackerTable({
                                 <th>INIT</th>
                                 <th>Name</th>
                                 <th>AC</th>
-                                <th>Current HP</th>
+                                <th>HP</th>
                                 <th>Notes</th>
                                 <th className="tooltip" onClick={handleHidden}>
                                     {hidden === true ? (
@@ -127,7 +129,7 @@ export default function TrackerTable({
                                                 handleViewNotes(c.notes)
                                             }
                                         />{" "}
-                                        <FontAwesomeIcon icon={faPenToSquare} />
+                                        {/* <FontAwesomeIcon icon={faPenToSquare} /> */}
                                     </td>
                                     <td
                                         onClick={() =>

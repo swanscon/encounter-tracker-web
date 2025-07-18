@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "../styles/forms.css";
+import "../styles/containers.css";
 
 export default function PlayerSelector({ party, addPlayers }) {
     const oddCourage = [
@@ -57,7 +59,7 @@ export default function PlayerSelector({ party, addPlayers }) {
             <p>Select PLAYER CHARACTERS to include in this encounter.</p>
             <form>
                 {playerList.map((c, index) => (
-                    <div key={index}>
+                    <div key={index} className="player-selector-container">
                         <label htmlFor="checkbox">{c}</label>
                         <input
                             name="checkbox"
@@ -68,9 +70,11 @@ export default function PlayerSelector({ party, addPlayers }) {
                     </div>
                 ))}
             </form>
-            <button onClick={handleSubmitSelectedPlayers}>
-                Submit Selected Players
-            </button>
+            <div className="button-container">
+                <button onClick={handleSubmitSelectedPlayers}>
+                    Submit Selected Players
+                </button>
+            </div>
         </div>
     );
 }
