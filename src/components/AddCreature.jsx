@@ -7,6 +7,7 @@ export default function AddCreature({ updateList }) {
         init: "",
         name: "",
         ac: "",
+        hp: "",
         notes: "",
         pc: false,
     });
@@ -41,7 +42,7 @@ export default function AddCreature({ updateList }) {
                 const newInit = rollInit(initStr);
                 updatedCreature.init = newInit;
             }
-            console.log("Submitting:", creature);
+
             updateList(updatedCreature);
             qty--;
         }
@@ -50,9 +51,11 @@ export default function AddCreature({ updateList }) {
             init: "",
             name: "",
             ac: "",
+            hp: "",
             notes: "",
             pc: false,
         });
+        console.log(`Submitting creature: ${creature.name} (x ${count})`);
         setCount(1);
     };
 
@@ -79,6 +82,13 @@ export default function AddCreature({ updateList }) {
                     name="ac"
                     onChange={handleChange}
                     value={creature.ac}
+                />
+                <label htmlFor="hp">HP</label>
+                <input
+                    type="text"
+                    name="hp"
+                    onChange={handleChange}
+                    value={creature.hp}
                 />
                 <label htmlFor="notes">NOTES</label>
                 <input

@@ -9,14 +9,17 @@ import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
 import { faEye } from "@fortawesome/free-regular-svg-icons";
 import { faCaretUp } from "@fortawesome/free-solid-svg-icons";
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
+import EditWindow from "./EditWindow";
 
 export default function TrackerTable({
     creatureList,
     updateFormHidden,
-    updateWindowHidden,
+    updateCreature,
 }) {
     const [hidden, setHidden] = useState(false);
     const [killedCreatures, setKilledCreatures] = useState([]);
+    const [editWindowHidden, setEditWindowHidden] = useState(true);
+    const [editCreature, setEditCreature] = useState({});
 
     const handleHidden = () => {
         const prev = hidden;
@@ -32,19 +35,26 @@ export default function TrackerTable({
         alert(noteStr);
     };
 
-    const handleKillCreature = (creature) => {
-        if (killedCreatures.includes(creature)) {
-            let newKilledCreatures = [];
-            for (let c of killedCreatures) {
-                if (c !== creature) {
-                    newKilledCreatures.push(c);
-                }
-            }
-            console.log(`Creature: ${creature} revived.`);
-            setKilledCreatures(newKilledCreatures);
+    const handleCloseEditWindow = () => {
+        setEditWindowHidden(true);
+    };
+
+    const handleEditCreature = (creature) => {
+        setEditWindowHidden(false);
+        setEditCreature(creature);
+    };
+
+    const handleSaveEditCreature = (prev, cur) => {
+        updateCreature(prev, cur);
+    };
+
+    const handleKillCreature = (name) => {
+        if (killedCreatures.includes(name)) {
+            setKilledCreatures((prev) => prev.filter((n) => n !== name));
+            console.log(`Creature: ${name} revived.`);
         } else {
-            console.log(`Creature: ${creature} has died.`);
-            setKilledCreatures((prev) => [...prev, creature]);
+            setKilledCreatures((prev) => [...prev, name]);
+            console.log(`Creature: ${name} has died.`);
         }
     };
 
@@ -52,6 +62,15 @@ export default function TrackerTable({
         <>
             <h3>Encounter Tracker</h3>
             <div className="table-container">
+                {editWindowHidden ? (
+                    <></>
+                ) : (
+                    <EditWindow
+                        closeEditWindow={handleCloseEditWindow}
+                        creature={editCreature}
+                        updateCreature={handleSaveEditCreature}
+                    />
+                )}
                 <table>
                     <thead>
                         {creatureList.length > 0 ? (
@@ -99,7 +118,7 @@ export default function TrackerTable({
                                     )}
                                     <td>{c.ac}</td>
                                     <td>
-                                        <TextBox />
+                                        <TextBox initialValue={c.hp} />
                                     </td>
                                     <td>
                                         <FontAwesomeIcon
@@ -117,9 +136,7 @@ export default function TrackerTable({
                                     >
                                         <FontAwesomeIcon icon={faSkull} />
                                     </td>
-                                    <td
-                                        onClick={updateWindowHidden}
-                                    >
+                                    <td onClick={() => handleEditCreature(c)}>
                                         <FontAwesomeIcon
                                             icon={faEllipsisVertical}
                                         />

@@ -6,22 +6,18 @@ import EditWindow from "../components/EditWindow";
 export default function EncounterTracker({ playerList }) {
     const [creatureList, setCreatureList] = useState([]);
     const [formHidden, setFormHidden] = useState(false);
-    const [editWindowHidden, setEditWindowHidden] = useState(true);
 
     useEffect(() => {
-        let selectedPlayers = [];
-        for (let player of playerList) {
-            const selectedPlayer = {
-                init: "",
-                name: player,
-                ac: "",
-                notes: "",
-                pc: true,
-            };
-            selectedPlayers.push(selectedPlayer);
-        }
+        const selectedPlayers = playerList.map((player) => ({
+            init: "",
+            name: player,
+            ac: "",
+            hp: "",
+            notes: "",
+            pc: true,
+        }));
         setCreatureList(selectedPlayers);
-    }, []);
+    }, [playerList]);
 
     const handleUpdateList = (newCreature) => {
         setCreatureList((prevList) => {
@@ -41,18 +37,35 @@ export default function EncounterTracker({ playerList }) {
         });
     };
 
-    // const handleUpdateCreature = (creature) => {
-    //     alert(`Editing creature: ${creature}`);
-    // };
+    const handleUpdateWithEditCreature = (prev, cur) => {
+        const creatureMatches = (a, b) =>
+            a.init === b.init && a.name === b.name && a.ac === b.ac;
+
+        if (creatureList.some((c) => creatureMatches(c, prev))) {
+            const updatedList = creatureList.map((c) =>
+                creatureMatches(c, prev) ? cur : c
+            );
+
+            const sortedList = updatedList.sort((a, b) => {
+                const initA = parseInt(a.init) || 0;
+                const initB = parseInt(b.init) || 0;
+
+                if (initA !== initB) {
+                    return initB - initA;
+                }
+
+                return a.name.localeCompare(b.name);
+            });
+
+            setCreatureList(sortedList);
+        } else {
+            console.log("Creature unchanged @EncounterTracker.");
+        }
+    };
 
     const handleUpdateFormHidden = () => {
         const prev = formHidden;
         setFormHidden(!prev);
-    };
-
-    const handleUpdateWindowHidden = () => {
-        const prev = editWindowHidden;
-        setEditWindowHidden(!prev);
     };
 
     return (
@@ -62,13 +75,8 @@ export default function EncounterTracker({ playerList }) {
             <TrackerTable
                 creatureList={creatureList}
                 updateFormHidden={handleUpdateFormHidden}
-                updateWindowHidden={handleUpdateWindowHidden} 
+                updateCreature={handleUpdateWithEditCreature}
             />
-            {editWindowHidden ? (
-                <></>
-            ) : (
-                <EditWindow updateWindowHidden={handleUpdateWindowHidden} />
-            )}
         </>
     );
 }
