@@ -1,22 +1,26 @@
 import { useState, useEffect } from "react";
 import AddCreature from "../components/AddCreature";
 import TrackerTable from "../components/TrackerTable";
-import EditWindow from "../components/EditWindow";
 
 export default function EncounterTracker({ playerList }) {
     const [creatureList, setCreatureList] = useState([]);
     const [formHidden, setFormHidden] = useState(false);
+    // const [foundLocal, setFoundLocal] = useState(false);
 
     useEffect(() => {
-        const selectedPlayers = playerList.map((player) => ({
-            init: "",
-            name: player,
-            ac: "",
-            hp: "",
-            notes: "",
-            pc: true,
-        }));
-        setCreatureList(selectedPlayers);
+        // if (!localStorage.getItem("myEncounter")) {
+            const selectedPlayers = playerList.map((player) => ({
+                init: "",
+                name: player,
+                ac: "",
+                hp: "",
+                notes: "",
+                pc: true,
+            }));
+            setCreatureList(selectedPlayers);
+        // } else {
+        //     setFoundLocal((prev) => !prev);
+        // }
     }, [playerList]);
 
     const handleUpdateList = (newCreature) => {
@@ -35,6 +39,9 @@ export default function EncounterTracker({ playerList }) {
                 return a.name.localeCompare(b.name);
             });
         });
+        localStorage.setItem("myEncounter", JSON.stringify(creatureList));
+        const retrieved = localStorage.getItem("myEncounter");
+        console.log(JSON.parse(retrieved));
     };
 
     const handleUpdateWithEditCreature = (prev, cur) => {
@@ -66,6 +73,7 @@ export default function EncounterTracker({ playerList }) {
     const handleUpdateFormHidden = () => {
         const prev = formHidden;
         setFormHidden(!prev);
+        localStorage.setItem("myFormHidden", formHidden);
     };
 
     return (

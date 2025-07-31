@@ -10,6 +10,7 @@ import { faEye } from "@fortawesome/free-regular-svg-icons";
 import { faCaretUp } from "@fortawesome/free-solid-svg-icons";
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 import EditWindow from "./EditWindow";
+import ViewWindow from "./ViewWindow";
 
 export default function TrackerTable({
     creatureList,
@@ -20,7 +21,8 @@ export default function TrackerTable({
     const [killedCreatures, setKilledCreatures] = useState([]);
     const [editWindowHidden, setEditWindowHidden] = useState(true);
     const [editCreature, setEditCreature] = useState({});
-    // const [notesWindowHidden, setNotesWindowHidden] = useState(true);
+    const [notesWindowHidden, setNotesWindowHidden] = useState(true);
+    const [viewCreature, setViewCreature] = useState({});
 
     const handleHidden = () => {
         const prev = hidden;
@@ -28,13 +30,16 @@ export default function TrackerTable({
         updateFormHidden();
     };
 
-    const handleViewNotes = (note) => {
-        // setNotesWindowHidden(false);
-        let noteStr = note.trim();
-        if (noteStr.length === 0) {
-            noteStr = "No notes for creature. Edit to add new notes.";
-        }
-        alert(noteStr);
+    const handleCloseViewWindow = () => {
+        setNotesWindowHidden(true);
+    }
+
+    const handleViewNotes = (creature) => {
+        setNotesWindowHidden(false);
+        setViewCreature({
+            name: creature.name,
+            notes: creature.notes.length > 0 ? creature.notes : "No notes to display."
+        });
     };
 
     const handleCloseEditWindow = () => {
@@ -71,6 +76,14 @@ export default function TrackerTable({
                         closeEditWindow={handleCloseEditWindow}
                         creature={editCreature}
                         updateCreature={handleSaveEditCreature}
+                    />
+                )}
+                {notesWindowHidden ? (
+                    <></>
+                ) : (
+                    <ViewWindow 
+                        creature={viewCreature}
+                        closeNotesWindow={handleCloseViewWindow}
                     />
                 )}
                 <table>
@@ -126,7 +139,7 @@ export default function TrackerTable({
                                         <FontAwesomeIcon
                                             icon={faEye}
                                             onClick={() =>
-                                                handleViewNotes(c.notes)
+                                                handleViewNotes(c)
                                             }
                                         />{" "}
                                         {/* <FontAwesomeIcon icon={faPenToSquare} /> */}

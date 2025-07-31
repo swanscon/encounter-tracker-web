@@ -26,6 +26,7 @@ export default function PlayerSelector({ party, addPlayers }) {
     const navigate = useNavigate();
 
     useEffect(() => {
+        localStorage.clear();
         if (party === "Odd Courage") {
             setPlayerList(oddCourage);
         } else {
