@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function LoadWindow({ loadEncounter, closeLoadWindow }) {
+export default function RefreshWindow({ loadEncounter, closeLoadWindow }) {
     const [warning, setWarning] = useState(false);
 
     const handleLoadEncounter = () => {

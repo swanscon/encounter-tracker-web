@@ -8,7 +8,7 @@ export default function EncounterTracker({ playerList }) {
     // const [foundLocal, setFoundLocal] = useState(false);
 
     useEffect(() => {
-        // if (!localStorage.getItem("myEncounter")) {
+        if (!localStorage.getItem("myEncounter")) {
             const selectedPlayers = playerList.map((player) => ({
                 init: "",
                 name: player,
@@ -18,30 +18,29 @@ export default function EncounterTracker({ playerList }) {
                 pc: true,
             }));
             setCreatureList(selectedPlayers);
-        // } else {
+        } else {
         //     setFoundLocal((prev) => !prev);
-        // }
+            const localCreatures = JSON.parse(localStorage.getItem("myEncounter"));
+            setCreatureList(localCreatures);
+        }
     }, [playerList]);
 
     const handleUpdateList = (newCreature) => {
         setCreatureList((prevList) => {
-            const updatedList = [...prevList, newCreature];
-            return updatedList.sort((a, b) => {
-                // Sort by init
+            const updatedList = [...prevList, newCreature].sort((a, b) => {
                 const initA = parseInt(a.init) || 0;
                 const initB = parseInt(b.init) || 0;
-
-                if (initA !== initB) {
-                    return initB - initA;
-                }
-
-                // If init equal, sort by name
+                if (initA !== initB) return initB - initA;
                 return a.name.localeCompare(b.name);
             });
+            localStorage.setItem("myEncounter", JSON.stringify(updatedList));
+            console.log(
+                `Creature List: ${updatedList
+                    .map((c) => `'${c.name}'`)
+                    .join(", ")}`
+            );
+            return updatedList;
         });
-        localStorage.setItem("myEncounter", JSON.stringify(creatureList));
-        const retrieved = localStorage.getItem("myEncounter");
-        console.log(JSON.parse(retrieved));
     };
 
     const handleUpdateWithEditCreature = (prev, cur) => {
@@ -63,7 +62,7 @@ export default function EncounterTracker({ playerList }) {
 
                 return a.name.localeCompare(b.name);
             });
-
+            localStorage.setItem("myEncounter", JSON.stringify(sortedList));
             setCreatureList(sortedList);
         } else {
             console.log("Creature unchanged @EncounterTracker.");

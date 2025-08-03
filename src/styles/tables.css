@@ -38,6 +38,7 @@ td:nth-child(2) {
 
 td:nth-child(5) {
 	min-width: 25px;
+    cursor: pointer;
 }
 
 td:nth-child(6) {
