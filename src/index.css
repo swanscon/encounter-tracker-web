@@ -29,10 +29,15 @@ html, body {
 body {
     margin: 0;
     display: flex;
-    place-items: center;
     min-width: 320px;
     min-height: 100vh;
     /* overflow-x: hidden; */
+}
+
+@media only screen and (min-width: 850px) {
+    body {
+        place-items: center;
+    }
 }
 
 h1 {

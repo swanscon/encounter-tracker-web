@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "../styles/popup.css";
+import "../styles/forms.css";
 
 export default function EditWindow({
     creature,
@@ -9,7 +10,6 @@ export default function EditWindow({
     const [newCreature, setNewCreature] = useState(creature);
 
     const handleChange = (e) => {
-        const prev = newCreature;
         e.preventDefault();
         const field = e.target.name;
         setNewCreature({
@@ -26,8 +26,8 @@ export default function EditWindow({
 
     return (
         <div className="edit-window">
-            <p>Edit Window</p>
-            <form onSubmit={handleSubmit}>
+            <p>Editing Creature: <b>{creature.name}</b></p>
+            <form className="edit-form" onSubmit={handleSubmit}>
                 <div>
                     <label htmlFor="init">INIT</label>
                     <input
@@ -53,9 +53,10 @@ export default function EditWindow({
                     />
                 </div>
                 <button type="submit">Save</button>
-                <button style={{ backgroundColor: "red" }}>DELETE</button>
+                <button style={{ backgroundColor: "#4e1616" }}>DELETE</button>
+                <button onClick={closeEditWindow}>Close</button>
             </form>
-            <button onClick={closeEditWindow}>X</button>
+            
         </div>
     );
 }

@@ -1,13 +1,16 @@
 .edit-window {
     position: fixed;
-    justify-self: center;
     z-index: 999;
-    top: 50%;
     left: 50%;
     transform: translate(-50%, 0);
-    width: 500px;
-    height: 300px;
-    background-color: darkgrey;
+    width: 450px;
+    background-color: rgba(104, 104, 104, 0.95);
+    box-shadow: 10px 10px 45px 0px rgba(0, 0, 0, 0.51);
+    -webkit-box-shadow: 10px 10px 45px 0px rgba(0, 0, 0, 0.51);
+    -moz-box-shadow: 10px 10px 45px 0px rgba(0, 0, 0, 0.51);
+    border-top: 10px double #4e1616;
+    border-bottom: 10px double #4e1616;
+    
 }
 
 @media only screen and (max-width: 600px) {

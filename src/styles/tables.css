@@ -55,25 +55,20 @@ td:nth-child(7) {
 
 .table-container {
     display: flex;
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically if desired */
+    place-items: center;
     margin-top: 1em;
 }
 
-/* generic desktop: let content size naturally */
 .table-container table {
     width: max-content;
 }
 
-/* for any screen narrower than 850px */
 @media only screen and (max-width: 850px) {
     .table-container {
-        width: 90%;
-        /* allow a little padding, but don’t let it push you wider than the viewport */
         padding: 0 1em;
     }
     .table-container table {
-        width: 100%;
+        width: 90vw;
         table-layout: unset;
     }
     td,
@@ -82,19 +77,3 @@ td:nth-child(7) {
         padding: 0.1em;
     }
 }
-
-/* @media only screen and (max-width: 768px) {
-  .table-container {
-    overflow-x: auto;
-    padding: 0 1em;
-  }
-
-  .table-container table {
-    width: max-content;
-  }
-
-  td, th {
-    font-size: 14px;
-    padding: 0.5em;
-  }
-} */
