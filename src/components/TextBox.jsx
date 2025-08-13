@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import "../styles/forms.css";
 
-export default function TextBox({ initialValue }) {
+export default function TextBox({ initialValue, changeValue }) {
     const [curValue, setCurValue] = useState(initialValue);
     const [prev, setPrev] = useState(initialValue);
 
@@ -22,9 +22,11 @@ export default function TextBox({ initialValue }) {
         e.preventDefault();
         if (!Number.isInteger(Number.parseInt(curValue))) {
             setCurValue(prev);
+            changeValue(prev);
         } else {
-            const newVal = eval(curValue);
-            setCurValue(newVal > 0 ? newVal : 0);
+            const newVal = Math.max(0, eval(curValue));
+            setCurValue(newVal);
+            changeValue(newVal);
         }
     };
 

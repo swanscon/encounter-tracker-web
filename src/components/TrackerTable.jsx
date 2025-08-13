@@ -32,13 +32,16 @@ export default function TrackerTable({
 
     const handleCloseViewWindow = () => {
         setNotesWindowHidden(true);
-    }
+    };
 
     const handleViewNotes = (creature) => {
         setNotesWindowHidden(false);
         setViewCreature({
             name: creature.name,
-            notes: creature.notes.length > 0 ? creature.notes : "No notes to display."
+            notes:
+                creature.notes.length > 0
+                    ? creature.notes
+                    : "No notes to display.",
         });
     };
 
@@ -81,7 +84,7 @@ export default function TrackerTable({
                 {notesWindowHidden ? (
                     <></>
                 ) : (
-                    <ViewWindow 
+                    <ViewWindow
                         creature={viewCreature}
                         closeNotesWindow={handleCloseViewWindow}
                     />
@@ -133,14 +136,20 @@ export default function TrackerTable({
                                     )}
                                     <td>{c.ac}</td>
                                     <td>
-                                        <TextBox initialValue={c.hp} />
+                                        <TextBox
+                                            initialValue={c.hp}
+                                            changeValue={(newHP) =>
+                                                updateCreature(c, {
+                                                    ...c,
+                                                    hp: newHP,
+                                                })
+                                            }
+                                        />
                                     </td>
                                     <td>
                                         <FontAwesomeIcon
                                             icon={faEye}
-                                            onClick={() =>
-                                                handleViewNotes(c)
-                                            }
+                                            onClick={() => handleViewNotes(c)}
                                         />{" "}
                                         {/* <FontAwesomeIcon icon={faPenToSquare} /> */}
                                     </td>
